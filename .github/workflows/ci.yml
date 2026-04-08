@@ -84,7 +84,7 @@ jobs:
 
       - name: Build and push frontend
         run: |
-          docker build -f frontend/Dockerfile --target prod -t ${{ env.IMAGE_PREFIX }}/frontend:latest frontend/
+          docker build -f frontend/Dockerfile --target prod --build-arg VITE_API_URL=${{ secrets.VITE_API_URL }} -t ${{ env.IMAGE_PREFIX }}/frontend:latest frontend/
           docker push ${{ env.IMAGE_PREFIX }}/frontend:latest
 
   deploy:
