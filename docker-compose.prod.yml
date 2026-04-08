@@ -1,27 +1,50 @@
 services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-achievement_leveling}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  achievement:
+    image: ghcr.io/danmaos/achievement-leveling/achievement:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=8081
+      - DB_DSN=${MYSQL_USER:-appuser}:${MYSQL_PASSWORD:-apppass}@tcp(mysql:3306)/${MYSQL_DATABASE:-achievement_leveling}?charset=utf8mb4&parseTime=True&loc=Local
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  gateway:
+    image: ghcr.io/danmaos/achievement-leveling/gateway:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me-in-production}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URL=${GOOGLE_REDIRECT_URL:-http://localhost:8080/auth/google/callback}
+      - ACHIEVEMENT_SVC_URL=http://achievement:8081
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
+    depends_on:
+      - achievement
+
   frontend:
-    build:
-      context: ./frontend
-      target: prod
-      args:
-        VITE_API_URL: ${VITE_API_URL:-https://yourdomain.com}
+    image: ghcr.io/danmaos/achievement-leveling/frontend:latest
     ports:
       - "3000:80"
-    volumes: []
-
-  caddy:
-    image: caddy:2-alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - gateway
-      - frontend
 
 volumes:
-  caddy_data:
-  caddy_config:
+  mysql_data:
