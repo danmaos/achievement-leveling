@@ -46,12 +46,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto px-4 py-8">
-    <div class="bg-gray-800 rounded-xl p-6 mb-6">
-      <div class="flex items-center gap-6">
+  <div class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+    <div class="bg-gray-800 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+      <div class="flex items-center gap-3 sm:gap-6">
         <LevelBadge :level="currentLevel" />
-        <div class="flex-1">
-          <h1 class="text-2xl font-bold">{{ auth.user?.name }}</h1>
+        <div class="flex-1 min-w-0">
+          <h1 class="text-lg sm:text-2xl font-bold truncate">{{ auth.user?.name }}</h1>
           <p class="text-indigo-400 font-medium">{{ levelTitle }}</p>
           <div class="mt-3">
             <div class="flex justify-between text-sm text-gray-400 mb-1">
@@ -64,23 +64,23 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div class="bg-gray-800 rounded-xl p-4 text-center">
-        <p class="text-3xl font-bold text-indigo-400">{{ currentLevel }}</p>
-        <p class="text-gray-400 text-sm">Level</p>
+    <div class="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
+      <div class="bg-gray-800 rounded-xl p-3 sm:p-4 text-center">
+        <p class="text-2xl sm:text-3xl font-bold text-indigo-400">{{ currentLevel }}</p>
+        <p class="text-gray-400 text-xs sm:text-sm">Level</p>
       </div>
-      <div class="bg-gray-800 rounded-xl p-4 text-center">
-        <p class="text-3xl font-bold text-green-400">{{ currentXP }}</p>
-        <p class="text-gray-400 text-sm">Total XP</p>
+      <div class="bg-gray-800 rounded-xl p-3 sm:p-4 text-center">
+        <p class="text-2xl sm:text-3xl font-bold text-green-400">{{ currentXP }}</p>
+        <p class="text-gray-400 text-xs sm:text-sm">Total XP</p>
       </div>
-      <div class="bg-gray-800 rounded-xl p-4 text-center">
-        <p class="text-3xl font-bold text-yellow-400">{{ completedCount }}</p>
-        <p class="text-gray-400 text-sm">Completed</p>
+      <div class="bg-gray-800 rounded-xl p-3 sm:p-4 text-center">
+        <p class="text-2xl sm:text-3xl font-bold text-yellow-400">{{ completedCount }}</p>
+        <p class="text-gray-400 text-xs sm:text-sm">Completed</p>
       </div>
     </div>
 
-    <div class="bg-gray-800 rounded-xl p-6">
-      <h2 class="text-lg font-semibold mb-4">Recent Activity</h2>
+    <div class="bg-gray-800 rounded-xl p-4 sm:p-6">
+      <h2 class="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Recent Activity</h2>
       <div v-if="recentProgress.length === 0" class="text-gray-500 text-center py-4">
         No achievements completed yet. Start your journey!
       </div>

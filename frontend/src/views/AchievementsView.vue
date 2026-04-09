@@ -39,8 +39,8 @@ async function handleComplete(achievementId: string) {
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">Achievements</h1>
+  <div class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+    <h1 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Achievements</h1>
 
     <div
       v-if="levelUpMessage"
@@ -49,7 +49,7 @@ async function handleComplete(achievementId: string) {
       {{ levelUpMessage }}
     </div>
 
-    <div class="flex gap-2 mb-6 flex-wrap">
+    <div class="flex gap-2 mb-4 sm:mb-6 flex-wrap">
       <button
         @click="filterByCategory('')"
         :class="[

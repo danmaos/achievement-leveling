@@ -21,46 +21,46 @@ function handleLogout() {
 <template>
   <div class="min-h-screen bg-gray-900 text-white">
     <nav v-if="auth.isAuthenticated" class="bg-gray-800 border-b border-gray-700">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-6">
-          <RouterLink to="/" class="text-xl font-bold text-indigo-400">
+      <div class="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-3">
+        <div class="flex items-center justify-between">
+          <RouterLink to="/" class="text-lg sm:text-xl font-bold text-indigo-400 shrink-0">
             Achievement Leveling
           </RouterLink>
-          <div class="flex gap-4">
-            <RouterLink
-              to="/"
-              class="text-gray-300 hover:text-white transition"
+          <div class="flex items-center gap-2 sm:gap-3">
+            <img
+              v-if="auth.user?.picture"
+              :src="auth.user.picture"
+              class="w-7 h-7 sm:w-8 sm:h-8 rounded-full"
+              referrerpolicy="no-referrer"
+            />
+            <span class="text-sm text-gray-300 hidden sm:inline">{{ auth.user?.name }}</span>
+            <button
+              @click="handleLogout"
+              class="text-xs sm:text-sm text-gray-400 hover:text-white"
             >
-              Dashboard
-            </RouterLink>
-            <RouterLink
-              to="/achievements"
-              class="text-gray-300 hover:text-white transition"
-            >
-              Achievements
-            </RouterLink>
-            <RouterLink
-              to="/profile"
-              class="text-gray-300 hover:text-white transition"
-            >
-              Profile
-            </RouterLink>
+              Logout
+            </button>
           </div>
         </div>
-        <div class="flex items-center gap-3">
-          <img
-            v-if="auth.user?.picture"
-            :src="auth.user.picture"
-            class="w-8 h-8 rounded-full"
-            referrerpolicy="no-referrer"
-          />
-          <span class="text-sm text-gray-300">{{ auth.user?.name }}</span>
-          <button
-            @click="handleLogout"
-            class="text-sm text-gray-400 hover:text-white ml-2"
+        <div class="flex gap-4 mt-2 text-sm overflow-x-auto">
+          <RouterLink
+            to="/"
+            class="text-gray-300 hover:text-white transition whitespace-nowrap"
           >
-            Logout
-          </button>
+            Dashboard
+          </RouterLink>
+          <RouterLink
+            to="/achievements"
+            class="text-gray-300 hover:text-white transition whitespace-nowrap"
+          >
+            Achievements
+          </RouterLink>
+          <RouterLink
+            to="/profile"
+            class="text-gray-300 hover:text-white transition whitespace-nowrap"
+          >
+            Profile
+          </RouterLink>
         </div>
       </div>
     </nav>

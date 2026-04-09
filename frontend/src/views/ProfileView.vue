@@ -11,8 +11,8 @@ const levelTitles: Record<number, string> = {
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-4 py-8">
-    <div class="bg-gray-800 rounded-xl p-8 text-center">
+  <div class="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+    <div class="bg-gray-800 rounded-xl p-5 sm:p-8 text-center">
       <img
         v-if="auth.user?.picture"
         :src="auth.user.picture"
